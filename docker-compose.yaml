@@ -7,8 +7,8 @@ services:
       - headscale:/var/lib/headscale
     restart: unless-stopped
 
-  tor:
-    build: docker/tor
+  torproxy:
+    build: docker/torproxy
     environment:
       - SERVICE=80;headscale:8514
     volumes:
