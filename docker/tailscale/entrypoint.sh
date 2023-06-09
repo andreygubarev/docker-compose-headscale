@@ -1,4 +1,9 @@
 #!/bin/sh
 
-nohup socat TCP-LISTEN:8514,fork,reuseaddr TCP:headscale:8514 &
+if [ -n "${TS_PORTFORWARD}" ]; then
+    TS_LISTEN_PORT=${TS_PORTFORWARD%%:*}
+    TS_REMOTE_ADDR=${TS_PORTFORWARD#*:}
+    nohup socat "TCP-LISTEN:${TS_LISTEN_PORT},fork,reuseaddr" "TCP:${TS_REMOTE_ADDR}" &
+fi
+
 containerboot "$@"
