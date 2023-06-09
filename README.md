@@ -23,7 +23,7 @@ flowchart TB
         container_tailscale_tailscale -- headscale:8514 --> container_headscale
     end
 
-    vps_tailscale -. localhost:8514 .-> vps_haproxy
+    vps_tailscale -- localhost:8514 --> vps_haproxy
     vps_haproxy -. server headscale:8514 .-> network_tailscale
     vps_haproxy -. server backup localhost:18514 .-> vps_socat
     vps_socat -- localhost:9050 --> vps_tor
