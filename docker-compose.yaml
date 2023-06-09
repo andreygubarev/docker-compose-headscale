@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  headscale:
+    build: headscale
+    volumes:
+      - headscale:/var/lib/headscale
+    restart: unless-stopped
+
+  tor:
+    build: tor
+    environment:
+      - SERVICE=80;headscale:8514
+    volumes:
+      - tor:/var/lib/tor
+    restart: unless-stopped
+    depends_on:
+      - headscale
+
+  tailscale:
+    build: tailscale
+    environment:
+      - TS_AUTHKEY=${TAILSCALE_AUTHKEY}
+      - TS_EXTRA_ARGS=--hostname=headscale --login-server http://headscale:8514
+      - TS_USERSPACE=true
+      - TS_STATE_DIR=/var/lib/tailscale
+    volumes:
+      - tailscale:/var/lib/tailscale
+    restart: unless-stopped
+    depends_on:
+      - headscale
+
+volumes:
+  headscale:
+  tor:
+  tailscale:
