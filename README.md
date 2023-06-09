@@ -20,6 +20,7 @@ flowchart TB
             container_tailscale_socat[socat localhost:8514]
             container_tailscale_tailscale[tailscaled 100.64.0.1]
         end
+        container_tailscale_tailscale -- headscale:8514 --> container_headscale
     end
 
     vps_tailscale -. localhost:8514 .-> vps_haproxy
@@ -30,6 +31,6 @@ flowchart TB
     container_tailscale_socat -- headscale:8514 --> container_headscale
     container_tor -- headscale:8514 --> container_headscale
 
-    network_tailscale --> container_tailscale
+    network_tailscale -- 100.64.0.1:8514 --> container_tailscale
     network_tor_hiddenservice --> container_tor
 ```
