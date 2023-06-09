@@ -2,13 +2,13 @@ version: '3'
 
 services:
   headscale:
-    build: headscale
+    build: docker/headscale
     volumes:
       - headscale:/var/lib/headscale
     restart: unless-stopped
 
   tor:
-    build: tor
+    build: docker/tor
     environment:
       - SERVICE=80;headscale:8514
     volumes:
@@ -18,7 +18,7 @@ services:
       - headscale
 
   tailscale:
-    build: tailscale
+    build: docker/tailscale
     environment:
       - TS_AUTHKEY=${TAILSCALE_AUTHKEY}
       - TS_EXTRA_ARGS=--hostname=headscale --login-server http://headscale:8514
