@@ -2,7 +2,7 @@ version: '3'
 
 services:
   headscale:
-    build: docker/headscale
+    image: quay.io/andreygubarev/headscale:0.1.2
     volumes:
       - headscale:/var/lib/headscale
     restart: unless-stopped
