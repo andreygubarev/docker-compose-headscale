@@ -6,9 +6,13 @@ help: ## Show this help
 clean: ## Remove the headscale server
 	@docker compose down -v
 
+.PHONY: build
+build: ## Build the headscale server
+	@docker compose build
+
 .PHONY: up
 up: ## Start the headscale server
-	@docker compose up -d --build
+	@docker compose up -d
 	@docker compose exec headscale headscale users create headscale --force
 
 .PHONY: down
