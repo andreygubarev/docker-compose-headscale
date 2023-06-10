@@ -20,12 +20,13 @@ services:
       - headscale
 
   tailscale:
-    build: docker/tailscale
+    image: ghcr.io/andreygubarev/tailscale:0.1.0
     environment:
       - TS_AUTHKEY=${TAILSCALE_AUTHKEY}
       - TS_EXTRA_ARGS=--hostname=headscale --login-server http://headscale:8514
       - TS_USERSPACE=true
       - TS_STATE_DIR=/var/lib/tailscale
+      - TS_PORTFORWARD=8514:headscale:8514
     volumes:
       - tailscale:/var/lib/tailscale
     restart: unless-stopped
