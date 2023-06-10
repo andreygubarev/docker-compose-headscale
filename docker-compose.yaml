@@ -8,9 +8,9 @@ services:
     restart: unless-stopped
 
   torproxy:
-    build: docker/torproxy
+    image: ghcr.io/andreygubarev/torproxy:0.1.0
     environment:
-      - SERVICE=80;headscale:8514
+      - TOR_SERVICE=80:headscale:8514
     volumes:
       - tor:/var/lib/tor
     restart: unless-stopped

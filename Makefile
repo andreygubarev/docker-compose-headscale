@@ -33,7 +33,7 @@ shell: ## Open a shell in the headscale server container
 .PHONY: info
 info: ## Show the headscale server info
 	@echo "Headscale server info:"
-	@docker compose exec tor cat /var/lib/tor/hidden_service/hostname
+	@docker compose exec torproxy cat /var/lib/tor/hidden_service/hostname
 
 .PHONY: status
 status: ## Show the headscale networks status
