@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
 
   torproxy:
-    image: ghcr.io/andreygubarev/torproxy:0.1.0
+    image: ghcr.io/andreygubarev/tor:0.3.1
     environment:
       - TOR_SERVICE=80:headscale:8514
     volumes:
